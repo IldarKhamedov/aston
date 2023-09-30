@@ -47,23 +47,18 @@ public class AccountService {
     public Account getSender(OperationDTO operationDTO){
         return accountRepository.findByNameAndPin(operationDTO.getNameFrom(),operationDTO.getPin());
     }
-    public Account getReceiver(OperationDTO operationDTO){
-        return accountRepository.findByName(operationDTO.getNameTo());
+    public Account getReceiver(String name){
+        return accountRepository.findByName(name);
     }
 
-    public void updateBalance(Operation operation){
-        Account accountFrom=operation.getFrom();
-        Account accountTo=operation.getTo();
-        Long amount=operation.getAmount();
-        if(operation.getOperationType()== OperationType.TRANSFER){
-            accountFrom.setBalance(accountFrom.getBalance()-amount);
-            accountTo.setBalance(accountTo.getBalance()+amount);
-            accountRepository.save(accountTo);
-        }else {
-            amount=operation.getOperationType()==OperationType.DEPOSIT ? amount : (-amount);
-            accountFrom.setBalance(accountFrom.getBalance()+amount);
+    public void saveAccounts(Operation operation){
+        Account from= operation.getFrom();
+        Account to=operation.getTo();
+        if(from!=null){
+            accountRepository.save(from);
         }
-        accountRepository.save(accountFrom);
-
+        if(to!=null){
+            accountRepository.save(to);
+        }
     }
 }
