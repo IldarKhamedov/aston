@@ -47,6 +47,16 @@
 			<artifactId>hsqldb</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.0.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -55,6 +65,12 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<jvmArguments>
+						-Xdebug
+						-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000
+						-Xnoagent
+						-Djava.compiler=NONE
+					</jvmArguments>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

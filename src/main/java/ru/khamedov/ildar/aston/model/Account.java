@@ -13,10 +13,12 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Basic(optional = false)
+    @Column(unique = true,nullable = false)
     private String name;
 
     private int pin;
 
     private long balance=0;
+
+    private boolean blocked;
 }
